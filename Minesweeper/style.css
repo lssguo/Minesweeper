@@ -1,0 +1,24 @@
+body {
+    width: 100vw;
+    height: 100vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+}
+
+.Minefeild {
+    border-style: solid;
+    border-color: #ccc;
+    border-width: 2px;
+    box-shadow: 1.5px 1.5px 1.5px #ccc;
+}
+
+.Square {
+    background-color: #dddd;
+    width: 2em;
+    height: 2em;
+    text-align: center;
+    border-style: outset;
+}
+
