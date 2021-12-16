@@ -22,3 +22,20 @@ body {
     border-style: outset;
 }
 
+.Square:hover {
+    background-color: #aaaa;
+}
+
+.clear {
+    border-color: #aaaa;
+    border-style: solid;
+    background-color: #aaaa;
+}
+
+.Square.Unfound {
+    background-color: rgb(212, 161, 95);
+}
+
+.Square.boom{
+    background-color: brown;
+}
