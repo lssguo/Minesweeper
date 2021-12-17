@@ -6,6 +6,7 @@ function GameSetting(PaneRows,PaneCols,grid) {
             let tdSet = document.createElement("td") ;
             let SquareEl = document.createElement("div") ;
             SquareEl.className = "Square" ;
+            SquareEl.tagName = "0";
             grid[x][y].SquareEl = SquareEl;
 
             SquareEl.addEventListener("click", (e)=> {
@@ -26,6 +27,10 @@ function GameSetting(PaneRows,PaneCols,grid) {
 
                 allcleared(grid);
             });
+
+            SquareEl.addEventListener("contextmenu", (e)=> {
+                
+            });
             
             tdSet.append(SquareEl) ;
             trSet.append(tdSet) ;
@@ -33,6 +38,7 @@ function GameSetting(PaneRows,PaneCols,grid) {
 
         boardSet.append(trSet) ;
     }
+
 }
 
 const round = [
@@ -42,6 +48,7 @@ const round = [
 ]
 
 function initialize(PaneRows, PaneCols, MinesNum) {
+
     let pane = new Array(PaneRows) ;
     for (let x = 0; x < PaneRows; x++) {
         pane[x] = new Array(PaneCols);
@@ -66,7 +73,6 @@ function initialize(PaneRows, PaneCols, MinesNum) {
             i -= 1;
         }
     }
-    console.log(mines);
 
     for (let [row,col] of mines) {
         for ( let [RRow, RCol] of round) {
@@ -154,10 +160,76 @@ function allcleared(grid) {
             }
         }
     }
-
+    
     return true;
 }
 
-let grid = initialize(9,9,9);
+function toclear(e) {
+    let deltr = document.getElementsByTagName("tr") ;
+    for (let i = 0; i < deltr.length;) {
+        deltr[0].remove();
+    }
+}
 
-GameSetting(9,9,grid);
+function basicset(e) {
+
+    let grid = initialize(9,9,10);
+    GameSetting(9,9,grid);
+
+    let inputEl = document.getElementsByClassName("diffiset");
+
+    for (i = 0; i < inputEl.length; i++) {
+
+        inputEl[i].onclick = function() {
+
+            let boxwidth,boxheight,num;
+            
+            if (this.id == 0) {
+                boxwidth = 9;
+                boxheight = 9;
+                num = 10;
+
+            } else if (this.id == 1) {
+                boxwidth = 16;
+                boxheight = 16;
+                num = 40;
+
+            } else if (this.id == 2) {
+                boxwidth = 30;
+                boxheight = 16;
+                num = 99;
+                
+            } else if (this.id == 3) {
+                boxwidth = prompt("请输入宽：");
+                boxheight = boxwidth && prompt("请输入高：");
+                num = boxheight && prompt("请输入雷数：");
+                if (! (boxwidth && boxheight && num)) {
+                    return;
+                  }
+                if (num > boxwidth * boxheight) {
+                    alert("雷数过多，请重新输入！")
+                }
+            }
+            grid.PaneRows = boxheight;
+            grid.PaneCols = boxwidth;
+            grid.MinesNum = num;
+            toclear();
+            grid = initialize(grid.PaneRows,grid.PaneCols,grid.MinesNum);
+            GameSetting(grid.length, grid[1].length, grid);
+        }
+    }
+ 
+    let resest = document.querySelector("#resest");
+    resest.addEventListener("click", (e)=> {
+        toclear();
+        grid = initialize(9,9,10);
+        GameSetting(9,9,grid);
+    });
+
+}
+
+
+
+
+
+basicset();

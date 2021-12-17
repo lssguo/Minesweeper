@@ -1,35 +1,38 @@
 body {
-    width: 100vw;
-    height: 100vw;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin: 0;
+    background: no-repeat center fixed;
+    background-size: cover;
+    margin: 8px;
 }
 
 .Minefeild {
     border-style: solid;
-    border-color: #ccc;
+    border-color: #385748d4;
     border-width: 2px;
-    box-shadow: 1.5px 1.5px 1.5px #ccc;
+    box-shadow: 1.5px 1.5px 1.5px #426b57d4;
 }
 
 .Square {
-    background-color: #dddd;
-    width: 2em;
-    height: 2em;
+    background-color: #5c8b74d4;
+    width: 1.2em;
+    height: 1.2em;
     text-align: center;
     border-style: outset;
+    border-color: #498351e8;
 }
 
 .Square:hover {
-    background-color: #aaaa;
+    border-style: solid;
+    background-color: #8fb7a6e3;
+    cursor: default;
 }
 
 .clear {
-    border-color: #aaaa;
+    border-color: #8fb7a6b5;
     border-style: solid;
-    background-color: #aaaa;
+    background-color: #8fb7a6e3;
 }
 
 .Square.Unfound {
@@ -38,4 +41,67 @@ body {
 
 .Square.boom{
     background-color: brown;
+}
+
+.Minetag {
+    border: 1.5px solid #808080;
+    border-right-color: #fff;
+    border-bottom-color: #fff;
+    height: 27px;
+    padding: 2px 4px;
+    text-align: center;
+    margin-bottom: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#MineNum {
+    width: 40px;
+    height: 27px;
+    background-color: yellow;
+}
+
+#resest {
+    background-color: crimson;
+    height: 25px;
+    width: 25px;
+}
+
+#resest:hover {
+    cursor: default;
+}
+
+#gametime {
+    width: 40px;
+    height: 27px;
+    background-color: brown;
+}
+
+.thegame {
+    margin: 50px auto;
+    background: #758962c7;
+    padding: 7px;
+    border-left: 2px solid #fff;
+    border-top: 2px solid #fff;
+}
+
+.menu {
+    background-color: #c8cf80a8;
+    margin-bottom: 5px;
+    height: 20px;
+    border-style: groove;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#board {
+    display: grid;
+    justify-content: center;
+}
+
+.diffiset:hover {
+    color: azure;
+    cursor: default;
 }
