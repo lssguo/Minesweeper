@@ -1,23 +1,38 @@
+let warnning = confirm("该游戏只允许有扫雷经验的人玩！（我说的。）")
+alert(warnning);
+if (!warnning) {
+        location.reload();
+}
 function GameSetting(PaneRows,PaneCols,grid) {
     let boardSet = document.querySelector("#board") ;
+    let minecount = document.querySelector("#MineNum");
+    let num = 0;
+    let temp = [];
+    let putposi = [];
+    let putnum = [];
+    window.oncontextmenu = function(e) {
+        return false;
+    }
     for (let x = 0; x < PaneRows; x++) {
         let trSet = document.createElement("tr") ;
         for (let y = 0; y < PaneCols; y++) {
             let tdSet = document.createElement("td") ;
             let SquareEl = document.createElement("div") ;
             SquareEl.className = "Square" ;
-            SquareEl.tagName = "0";
             grid[x][y].SquareEl = SquareEl;
+            if (grid[x][y].count === -1) {
+                    num += 1;
+                }
 
             SquareEl.addEventListener("click", (e)=> {
-                if (grid[x][y].count === -1) {
-                   boom(grid, x, y, PaneRows, PaneCols)
-                   alert("boom!")
+                if (grid[x][y].count === -1 ) {
+                   boom(grid, x, y, PaneRows, PaneCols);
+                   alert("接着练练吧！");
                     return;
                 }
 
                 if (grid[x][y].count === 0) {
-                    OpenSpacse(grid, x, y, PaneRows, PaneCols)
+                    OpenSpacse(grid, x, y, PaneRows, PaneCols);
                 }
                 else if (grid[x][y].count > 0) {
                     grid[x][y].clear = true;
@@ -26,20 +41,83 @@ function GameSetting(PaneRows,PaneCols,grid) {
                 }
 
                 allcleared(grid);
-            });
-
-            SquareEl.addEventListener("contextmenu", (e)=> {
-                
+                checkwin();
             });
             
+            SquareEl.addEventListener("contextmenu", (e)=> {
+                if (!grid[x][y].clear) {
+                SquareEl.classList.toggle("mark");
+            }
+
+                 
+            for (let a = 0; a < PaneRows * PaneCols; a++) {
+                if ( !temp.includes(grid[x][y]) ) {
+                    if (grid[x][y].count == -1) {
+                        grid[x][y].count = -2;
+                        temp.push(grid[x][y]);
+                        break;
+                    }else if ( grid[x][y].count > -1) {
+                        putposi.push([x,y]);
+                        putnum.push(grid[x][y].count);
+                        grid[x][y].count = -3;
+                        break;
+                    }
+                    
+                }
+
+                if (temp.includes(grid[x][y]) && grid[x][y].count == -2) {
+                    grid[x][y].count = -1;
+                    for (let b = 0; b < temp.length; b++) {
+                         if ( temp.includes(grid[x][y]) ) {
+                            temp.splice(b,1);
+                            
+                         }
+                    }break;
+                }
+
+                if (grid[x][y].count == -3) {
+                    for (let i = 0; i < putnum.length; i++){
+                    for ([x,y] of putposi) {
+                            let number = putnum[i];
+                            
+                            grid[x][y].count = number;
+                }
+                }
+                    }break;
+            }
+                
+            
+                
+                    countMineNum(); 
+            });
+
+            function checkwin() {
+                if (num === 0) {
+                    alert("勇者斗赢了恶龙，而你战胜了扫雷！");
+                }
+            }
+
+            function countMineNum(e) {
+                let choose = grid[x][y];
+                if (choose.count == -2) {
+                    num -= 1;
+                }else if (choose.count == -1) {
+                    num += 1;
+                }
+                minecount.innerText = num;
+            }
+            
+
+            
+            minecount.innerText = num;
+
             tdSet.append(SquareEl) ;
             trSet.append(tdSet) ;
         }
-
         boardSet.append(trSet) ;
     }
-
-}
+    
+}    
 
 const round = [
     [-1, -1], [-1, 0], [-1, 1],
@@ -95,7 +173,6 @@ function initialize(PaneRows, PaneCols, MinesNum) {
 
 function boom(grid, x, y, PaneRows, PaneCols) {
     grid[x][y].SquareEl.classList.add("boom");
-
     for (let BoxRow = 0; BoxRow < PaneRows; BoxRow++) {
         for (let BoxCols = 0; BoxCols < PaneCols; BoxCols++) {
             let eachbox = grid[BoxRow][BoxCols];
@@ -164,6 +241,7 @@ function allcleared(grid) {
     return true;
 }
 
+
 function toclear(e) {
     let deltr = document.getElementsByTagName("tr") ;
     for (let i = 0; i < deltr.length;) {
@@ -215,7 +293,7 @@ function basicset(e) {
             grid.MinesNum = num;
             toclear();
             grid = initialize(grid.PaneRows,grid.PaneCols,grid.MinesNum);
-            GameSetting(grid.length, grid[1].length, grid);
+            GameSetting(grid.length, grid[0].length, grid);
         }
     }
  
@@ -227,9 +305,6 @@ function basicset(e) {
     });
 
 }
-
-
-
 
 
 basicset();

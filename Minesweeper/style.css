@@ -5,27 +5,31 @@ body {
     background: no-repeat center fixed;
     background-size: cover;
     margin: 8px;
+    background: url("pic/旅行绘本.jpg") no-repeat center fixed;
+    background-size: cover;
 }
 
 .Minefeild {
     border-style: solid;
-    border-color: #385748d4;
+    border-color: #868a81c7;
     border-width: 2px;
-    box-shadow: 1.5px 1.5px 1.5px #426b57d4;
+    box-shadow: 1.5px 1.5px 1.5px #6c8b7cd4;
 }
 
 .Square {
-    background-color: #5c8b74d4;
+    background-color: #5b5c5bd4;
     width: 1.2em;
     height: 1.2em;
     text-align: center;
     border-style: outset;
-    border-color: #498351e8;
+    border-color: #6a766cad;
 }
+
+
 
 .Square:hover {
     border-style: solid;
-    background-color: #8fb7a6e3;
+    background-color: #8fb7a6b5;
     cursor: default;
 }
 
@@ -36,11 +40,13 @@ body {
 }
 
 .Square.Unfound {
-    background-color: rgb(212, 161, 95);
+    background-color: rgb(212 161 95 / 77%);
+    background-image: url("pic/mine.png");
 }
 
 .Square.boom{
-    background-color: brown;
+    background-color: #a52a2ac4;
+    background-image: url("pic/mine.png");
 }
 
 .Minetag {
@@ -57,15 +63,23 @@ body {
 }
 
 #MineNum {
+    border-radius: 17px;
     width: 40px;
     height: 27px;
-    background-color: yellow;
+    background-color: white;
+    font-family: fantasy;
+    font-size: 25px;
+    text-align: center;
+    color: #993131;
+    margin-left: 20px;
 }
 
 #resest {
-    background-color: crimson;
+    background-color: white;
     height: 25px;
     width: 25px;
+    border-radius: 6px;
+    margin-right: 20px;
 }
 
 #resest:hover {
@@ -79,21 +93,21 @@ body {
 }
 
 .thegame {
-    margin: 50px auto;
-    background: #758962c7;
+    background: #9f9f9fe3;
     padding: 7px;
     border-left: 2px solid #fff;
     border-top: 2px solid #fff;
 }
 
 .menu {
-    background-color: #c8cf80a8;
+    background-color: #bdc7b6e3;
     margin-bottom: 5px;
     height: 20px;
-    border-style: groove;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    box-shadow: 1.5px 1.5px 0.5px #83897ee3;
+    border-radius: 2px;
 }
 
 #board {
@@ -104,4 +118,11 @@ body {
 .diffiset:hover {
     color: azure;
     cursor: default;
+}
+
+.mark {
+    background-color: rgba(252, 252, 252, 0.767);
+    background-image: url("pic/flag.png");
+    border-radius: 3px;
+    z-index: -1;
 }
